@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 import os
 from modules.error import Error
 
@@ -19,7 +21,7 @@ for line in file:
     if line.startswith("HACK ") or line.startswith("DDOS " ):
         #remove the "HACK"
         ping_arg = line[5:]
-        if(ping_arg == ""):
+        if(ping_arg == "" or ping_arg == None):
             Error(b = "Argument not satisfied", a = "SYNTAX ERR:")
 
         #remove the protocol
@@ -31,6 +33,12 @@ for line in file:
         #run the ping command
         #os.system(f"ping(\"{ping_arg}\")")
         response = os.system("ping " + ping_arg)
+    elif line.startswith("RELAY "):
+        #remove the "HACK"
+        relay_arg = line[6:]
+        if relay_arg != "" or relay_arg != None:
+            Error(a = "SYNTAX ERR:", b = "argument not found.")
+        print(relay_arg);
     elif line == "QUIT":
         quit_arg = line[5:]
         quit(quit_arg)
