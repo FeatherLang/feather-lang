@@ -4,7 +4,7 @@ from modules.error import Error
 fileDir = input("File Directory: ")
 
 poopcode = open(fileDir, "r")
-if poopcode.name.endswith(".pc") or poopcode.name.endswith(".poopcode"):
+if poopcode.name.endswith(".pc") or poopcode.name.endswith(".poopcode") or poopcode.name.endswith(".poop"):
     pass
 else:
     Error("File is not PoopCode")
@@ -20,7 +20,7 @@ if not os.path.exists("build"):
 
 python_code = open('build/output.py', 'w')
 print("Compiling PoopCode --> Python")
-python_code.write(f"# Compiled from PoopCode at {datetime.now().strftime('%B %d, %Y at %H:%M')}. \nimport os\n\n")
+python_code.write(f"# Compiled from PoopCode at {datetime.now().strftime('%B %d, %Y at %H:%M')}. \nimport os\nimport webbrowser\n\n")
 
 
 for line in file:
@@ -37,6 +37,15 @@ for line in file:
     elif line.startswith("RELAY "):
         relay = line[6:]
         python_code.write(f'print("{relay}")\n')
+    elif line.startswith("WEBSITE "):
+        website = line[8:]
+        if not website.endswith("https://"):
+            website = "https://" + website
+        python_code.write(f'webbrowser.open("{website}")\n')
+    elif line.startswith("CALC "):
+        #remove the "HACK"
+        calc = line[5:]
+        python_code.write(f'print("{calc}  = {str(eval(calc))}")\n')
     elif line == "QUIT":
         python_code.write(f'quit(0)\n')
         

@@ -1,20 +1,21 @@
 #!/usr/bin/env python
 
 import os
+import webbrowser
 from modules.error import Error
 
 fileDir = input("File Directory: ")
 
-f = open(fileDir, "r")
-if f.name.endswith(".pc") or f.name.endswith(".poopcode"):
+poopcode = open(fileDir, "r")
+if poopcode.name.endswith(".pc") or poopcode.name.endswith(".poopcode") or poopcode.name.endswith(".poop"):
     pass
 else:
     Error("File is not PoopCode")
 
 
-file_raw = f.read()
+file_raw = poopcode.read()
 file = file_raw.splitlines()
-f.close()
+poopcode.close()
 for line in file:
     if(line == ""):
         pass
@@ -31,14 +32,24 @@ for line in file:
             ping_arg = ping_arg[7:]
 
         #run the ping command
-        #os.system(f"ping(\"{ping_arg}\")")
+        #os.system(poopcode"ping(\"{ping_arg}\")")
         response = os.system("ping " + ping_arg)
     elif line.startswith("RELAY "):
         #remove the "HACK"
         relay_arg = line[6:]
-        if relay_arg != "" or relay_arg != None:
+        if relay_arg == "" or relay_arg == None:
             Error(a = "SYNTAX ERR:", b = "argument not found.")
-        print(relay_arg);
+        print(relay_arg)
+    elif line.startswith("WEBSITE "):
+        #remove the "HACK"
+        website = line[8:]
+        if not website.endswith("https://"):
+            website = "https://" + website
+        webbrowser.open(website)
+    elif line.startswith("CALC "):
+        #remove the "HACK"
+        calc = line[5:]
+        print(calc + " = " + str(eval(calc)))
     elif line == "QUIT":
         quit_arg = line[5:]
         quit(quit_arg)
