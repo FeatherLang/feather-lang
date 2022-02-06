@@ -15,12 +15,12 @@ file = file_raw.splitlines()
 
 if not os.path.exists("build"):
     os.mkdir("build")
-    if os.path.exists("build/output.py"):
+    if os.path.exists(f"build/output.py"):
         os.remove("build/output.py")
 
 python_code = open('build/output.py', 'w')
 print("Compiling PoopCode --> Python")
-python_code.write(f"# Compiled from PoopCode at {datetime.now().strftime('%B %d, %Y at %H:%M')}. \nimport os\nimport webbrowser\n\n")
+python_code.write(f"# Compiled from PoopCode at {datetime.now().strftime('%B %d, %Y at %H:%M')}.\n\nimport os\nimport webbrowser\n\n")
 
 
 for line in file:
@@ -46,7 +46,7 @@ for line in file:
         #remove the "HACK"
         calc = line[5:]
         python_code.write(f'print("{calc} = {str(eval(calc))}")\n')
-    elif line == "QUIT":
+    elif line == "QUIT" or line == "EXIT":
         python_code.write(f'quit(0)\n')
         
 

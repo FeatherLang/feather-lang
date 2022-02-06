@@ -50,8 +50,7 @@ for line in file:
         #remove the "HACK"
         calc = line[5:]
         print(calc + " = " + str(eval(calc)))
-    elif line == "QUIT":
-        quit_arg = line[5:]
-        quit(quit_arg)
+    elif line == "QUIT" or line == "EXIT":
+        quit(0)
     else:
         Error(a = "SYNTAX ERR:", b = f"function \"{line.split()[0]}\" not found.")
