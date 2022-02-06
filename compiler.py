@@ -45,7 +45,7 @@ for line in file:
     elif line.startswith("CALC "):
         #remove the "HACK"
         calc = line[5:]
-        python_code.write(f'print("{calc}  = {str(eval(calc))}")\n')
+        python_code.write(f'print("{calc} = {str(eval(calc))}")\n')
     elif line == "QUIT":
         python_code.write(f'quit(0)\n')
         
